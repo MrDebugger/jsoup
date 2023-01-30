@@ -1,0 +1,3 @@
+jsoup.egg-info/*
+build/*
+dist/*
