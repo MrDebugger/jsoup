@@ -2,15 +2,24 @@ import unittest
 from jsoup import install
 from bs4 import builder
 
+
 class TestInstall(unittest.TestCase):
     def test_install(self):
         install()
-        self.assertTrue("JsonTreeBuilder" in builder.__all__)
-        self.assertIn("JsonTreeBuilder", builder.builder_registry.registry.keys())
+        self.assertIn("JsonTreeBuilder", builder.__all__)
 
     def test_install_debug(self):
-        with self.assertRaises(AttributeError):
-            install(debug=True)
+        # Should print "Builder installed" without error
+        install(debug=True)
+
+    def test_install_usable(self):
+        """After install(), 'jsoup' should be usable as a parser string."""
+        install()
+        from bs4 import BeautifulSoup
+        json = {"p": "hello"}
+        soup = BeautifulSoup(json, "jsoup")
+        self.assertEqual(str(soup), '<p>hello</p>')
+
 
 if __name__ == '__main__':
     unittest.main()
