@@ -39,7 +39,7 @@ class JsonTreeBuilder(HTMLTreeBuilder):
 
     def __init__(self, parser_args=None, parser_kwargs=None, **kwargs) -> None:
         extra_parser_kwargs = {}
-        for arg in ('on_duplicate_attribute',):
+        for arg in ('on_duplicate_attribute', 'attr_name', 'text_name', 'children_name'):
             if arg in kwargs:
                 extra_parser_kwargs[arg] = kwargs.pop(arg)
         super().__init__(**kwargs)
@@ -109,6 +109,10 @@ class JsonTreeBuilder(HTMLTreeBuilder):
 
     def _handle_comment(self, comment: Any) -> None:
         """Insert an HTML comment node."""
+        if isinstance(comment, list):
+            for item in comment:
+                self._handle_comment(item)
+            return
         self.feed(comment)
         self.soup.endData(Comment)
 
