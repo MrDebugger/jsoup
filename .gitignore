@@ -1,3 +1,22 @@
-jsoup.egg-info/*
-build/*
-dist/*
+# Build / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Docs
+docs/
